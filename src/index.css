@@ -1,5 +1,5 @@
 :root {
-  /* RepRiot palette: evergreen, royal blue and cool grays. */
+  /* RepRiot palette: evergreen, sunny yellow and cool grays. */
   --ground: #f3f5f7;
   --card: #ffffff;
   --ink: #1c2430;
@@ -10,10 +10,12 @@
   --primary: #0b5d3b;
   --primary-dark: #074229;
   --primary-soft: #ddf0e6;
-  --accent: #2350d8;
-  --violet: #2350d8;
-  --violet-soft: #e2e9ff;
-  --hype: linear-gradient(135deg, #0b5d3b, #2350d8);
+  --accent: #f5c518;
+  --accent-dark: #6b5200;
+  --accent-soft: #fff4c2;
+  /* Decorative only (bars, borders): yellow can't carry white text. */
+  --hype: linear-gradient(90deg, #0b5d3b, #3f8f2a 55%, #f5c518);
+  --button: linear-gradient(135deg, #0b5d3b, #138a57);
   --gold: #b45309;
   --gold-soft: #fef3c7;
   --danger: #b42318;
@@ -59,7 +61,7 @@ a { color: var(--primary); }
   gap: 8px;
   text-decoration: none;
 }
-.btn-primary { background: var(--hype); color: #fff; box-shadow: 0 4px 14px rgba(11, 93, 59, 0.25); }
+.btn-primary { background: var(--button); color: #fff; box-shadow: 0 4px 14px rgba(11, 93, 59, 0.25); }
 .btn-primary:hover { background: var(--primary-dark); }
 .btn-primary:active { transform: scale(0.98); }
 .btn-primary:disabled { background: #b9c3cc; box-shadow: none; cursor: not-allowed; }
@@ -209,13 +211,13 @@ textarea { min-height: 72px; resize: vertical; }
 .stage > * { flex: 1; }
 .stage .media { border-radius: 0; }
 .channel-card { display: flex; flex-direction: column; gap: 10px; padding: 18px; background: linear-gradient(160deg, #183a4a, #1c2430 65%); color: #fff; overflow-y: auto; }
-.channel-card .eyebrow { color: #9fd8bc; }
+.channel-card .eyebrow { color: #f5c518; }
 .channel-card .muted { color: #c5ccd4; }
 .channel-card label, .channel-card .label { color: #fff; }
 .channel-card .btn-ghost { background: rgba(255, 255, 255, 0.1); color: #fff; border-color: rgba(255, 255, 255, 0.25); }
-.channel-card a { color: #a9bdff; }
-.channel-card .link-btn { color: #a9bdff; }
-.channel-card .spinner { border-color: rgba(255, 255, 255, 0.2); border-top-color: #9fd8bc; }
+.channel-card a { color: #ffd84d; }
+.channel-card .link-btn { color: #ffd84d; }
+.channel-card .spinner { border-color: rgba(255, 255, 255, 0.2); border-top-color: #f5c518; }
 .channel-title { font-size: 28px; line-height: 1.15; }
 .channel-body { font-size: 17px; line-height: 1.5; margin: 0; }
 .big-quote { font-family: 'Space Grotesk', Inter, sans-serif; font-size: 22px; line-height: 1.35; margin: auto 0; text-align: center; }
@@ -226,7 +228,7 @@ textarea { min-height: 72px; resize: vertical; }
 .challenge.gauntlet { border: 2px solid transparent; background: linear-gradient(#fff, #fff) padding-box, var(--hype) border-box; }
 .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #e8ecef; color: var(--ink); }
 .pill-hot { background: var(--primary-soft); color: var(--primary-dark); }
-.pill-cool { background: var(--violet-soft); color: var(--violet); }
+.pill-cool { background: var(--accent-soft); color: var(--accent-dark); }
 .vote-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: var(--ground); font-weight: 700; }
 .progress-list { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-direction: column; gap: 8px; }
 .progress-list .pbar { margin-top: 4px; height: 8px; }
@@ -236,7 +238,7 @@ textarea { min-height: 72px; resize: vertical; }
 .debate .row input { flex: 1; min-height: 40px; }
 
 /* RepRiot: welcome */
-.hero-title { font-size: 44px; letter-spacing: -0.02em; background: var(--hype); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-title { font-size: 44px; letter-spacing: -0.02em; color: var(--primary); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 6px; text-underline-offset: 6px; }
 @media (prefers-reduced-motion: no-preference) {
   .wiggle { animation: wiggle 2.4s ease-in-out infinite; transform-origin: 50% 80%; }
   @keyframes wiggle { 0%, 80%, 100% { transform: rotate(0); } 85% { transform: rotate(-6deg); } 90% { transform: rotate(6deg); } 95% { transform: rotate(-3deg); } }
