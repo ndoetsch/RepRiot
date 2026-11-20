@@ -1,19 +1,19 @@
 :root {
-  /* RepRiot palette: hot pink and orange on a warm ground, deep violet ink. */
-  --ground: #fff6f0;
+  /* RepRiot palette: evergreen, royal blue and cool grays. */
+  --ground: #f3f5f7;
   --card: #ffffff;
-  --ink: #1b1036;
-  --muted: #5e5670;
-  --line: #efdfe6;
-  --step1: #ffb37a;
-  --step2: #ff7a4d;
-  --primary: #e0115f;
-  --primary-dark: #b00c4a;
-  --primary-soft: #ffe1ec;
-  --accent: #ff7a00;
-  --violet: #6d28d9;
-  --violet-soft: #ede4ff;
-  --hype: linear-gradient(135deg, #ff2e7e, #ff8a00);
+  --ink: #1c2430;
+  --muted: #5b6470;
+  --line: #dde2e7;
+  --step1: #8fc9ad;
+  --step2: #3f8f6a;
+  --primary: #0b5d3b;
+  --primary-dark: #074229;
+  --primary-soft: #ddf0e6;
+  --accent: #2350d8;
+  --violet: #2350d8;
+  --violet-soft: #e2e9ff;
+  --hype: linear-gradient(135deg, #0b5d3b, #2350d8);
   --gold: #b45309;
   --gold-soft: #fef3c7;
   --danger: #b42318;
@@ -59,10 +59,10 @@ a { color: var(--primary); }
   gap: 8px;
   text-decoration: none;
 }
-.btn-primary { background: var(--hype); color: #fff; box-shadow: 0 4px 14px rgba(224, 17, 95, 0.28); }
+.btn-primary { background: var(--hype); color: #fff; box-shadow: 0 4px 14px rgba(11, 93, 59, 0.25); }
 .btn-primary:hover { background: var(--primary-dark); }
 .btn-primary:active { transform: scale(0.98); }
-.btn-primary:disabled { background: #d9bfca; box-shadow: none; cursor: not-allowed; }
+.btn-primary:disabled { background: #b9c3cc; box-shadow: none; cursor: not-allowed; }
 .btn-ghost { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
 .btn-ghost:hover { border-color: var(--ink); }
 .btn-sm { min-height: 44px; font-size: 14px; width: auto; padding: 0 14px; }
@@ -102,7 +102,7 @@ textarea { min-height: 72px; resize: vertical; }
 .back { background: none; border: 0; min-height: 44px; min-width: 44px; display: grid; place-items: center; border-radius: 12px; margin-left: -10px; }
 .eyebrow { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
 
-.seg { display: flex; background: #f6e6ec; border-radius: 12px; padding: 4px; gap: 4px; }
+.seg { display: flex; background: #e8ecef; border-radius: 12px; padding: 4px; gap: 4px; }
 .seg button { flex: 1; border: 0; background: none; border-radius: 9px; min-height: 40px; font-weight: 600; font-size: 14px; }
 .seg button[aria-pressed='true'] { background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); }
 
@@ -134,7 +134,7 @@ textarea { min-height: 72px; resize: vertical; }
 .mini-media img, .mini-media video { width: 100%; height: 100%; object-fit: cover; }
 
 .gif-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.gif-tile { aspect-ratio: 1 / 1; border-radius: 14px; border: 3px solid transparent; padding: 0; overflow: hidden; background: #f6e6ec; }
+.gif-tile { aspect-ratio: 1 / 1; border-radius: 14px; border: 3px solid transparent; padding: 0; overflow: hidden; background: #e8ecef; }
 .gif-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .gif-tile[aria-pressed='true'] { border-color: var(--primary); }
 .giphy-credit { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
@@ -150,7 +150,7 @@ textarea { min-height: 72px; resize: vertical; }
 .tabs a { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; font-weight: 600; color: var(--muted); min-width: 64px; min-height: 52px; justify-content: center; border-radius: 12px; text-decoration: none; }
 .tabs a[aria-current='page'] { color: var(--primary); }
 
-.overlay { position: fixed; inset: 0; background: rgba(27, 16, 54, 0.6); display: flex; align-items: center; justify-content: center; padding: 24px; z-index: 10; }
+.overlay { position: fixed; inset: 0; background: rgba(28, 36, 48, 0.6); display: flex; align-items: center; justify-content: center; padding: 24px; z-index: 10; }
 .overlay.sheet-wrap { align-items: flex-end; padding: 0; }
 .pop { background: #fff; border-radius: 24px; padding: 24px 20px; text-align: center; width: 100%; max-width: 420px; }
 .sheet { background: #fff; border-radius: 24px 24px 0 0; padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); width: 100%; max-width: 480px; }
@@ -180,7 +180,7 @@ textarea { min-height: 72px; resize: vertical; }
 .badge { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; text-align: center; font-weight: 600; }
 .badge .b { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--primary-soft); color: var(--primary); }
 .badge.locked { color: var(--muted); }
-.badge.locked .b { background: #f6e6ec; color: var(--muted); }
+.badge.locked .b { background: #e8ecef; color: var(--muted); }
 .badge .how { font-weight: 400; color: var(--muted); font-size: 10px; }
 
 .msgs { display: flex; flex-direction: column; gap: 10px; flex: 1; }
@@ -208,14 +208,14 @@ textarea { min-height: 72px; resize: vertical; }
 .stage { aspect-ratio: 1 / 1; border-radius: 20px; overflow: hidden; display: flex; }
 .stage > * { flex: 1; }
 .stage .media { border-radius: 0; }
-.channel-card { display: flex; flex-direction: column; gap: 10px; padding: 18px; background: linear-gradient(160deg, #2a1650, #1b1036 60%); color: #fff; overflow-y: auto; }
-.channel-card .eyebrow { color: #ffb3cf; }
-.channel-card .muted { color: #cfc6e6; }
+.channel-card { display: flex; flex-direction: column; gap: 10px; padding: 18px; background: linear-gradient(160deg, #183a4a, #1c2430 65%); color: #fff; overflow-y: auto; }
+.channel-card .eyebrow { color: #9fd8bc; }
+.channel-card .muted { color: #c5ccd4; }
 .channel-card label, .channel-card .label { color: #fff; }
 .channel-card .btn-ghost { background: rgba(255, 255, 255, 0.1); color: #fff; border-color: rgba(255, 255, 255, 0.25); }
-.channel-card a { color: #ffb3cf; }
-.channel-card .link-btn { color: #ffb3cf; }
-.channel-card .spinner { border-color: rgba(255, 255, 255, 0.2); border-top-color: #ff8a00; }
+.channel-card a { color: #a9bdff; }
+.channel-card .link-btn { color: #a9bdff; }
+.channel-card .spinner { border-color: rgba(255, 255, 255, 0.2); border-top-color: #9fd8bc; }
 .channel-title { font-size: 28px; line-height: 1.15; }
 .channel-body { font-size: 17px; line-height: 1.5; margin: 0; }
 .big-quote { font-family: 'Space Grotesk', Inter, sans-serif; font-size: 22px; line-height: 1.35; margin: auto 0; text-align: center; }
@@ -224,7 +224,7 @@ textarea { min-height: 72px; resize: vertical; }
 /* RepRiot: challenges */
 .challenge-title { display: block; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 18px; margin-top: 8px; }
 .challenge.gauntlet { border: 2px solid transparent; background: linear-gradient(#fff, #fff) padding-box, var(--hype) border-box; }
-.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #f6e6ec; color: var(--ink); }
+.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #e8ecef; color: var(--ink); }
 .pill-hot { background: var(--primary-soft); color: var(--primary-dark); }
 .pill-cool { background: var(--violet-soft); color: var(--violet); }
 .vote-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: var(--ground); font-weight: 700; }
