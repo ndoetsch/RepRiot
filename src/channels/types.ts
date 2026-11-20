@@ -5,8 +5,11 @@ import type { Exercise } from '../lib/types'
 /** What a channel gets while someone is doing a set. */
 export type ChannelViewProps = {
   exercise: Exercise
-  /** Read text out loud, if the person turned that on. */
-  say: (text: string, lang?: string) => void
+  /**
+   * Read text out loud, if the person turned that on. Pass now = true when the
+   * person tapped a speaker button, to read it even when read-aloud is off.
+   */
+  say: (text: string, lang?: string, now?: boolean) => void
 }
 
 /**

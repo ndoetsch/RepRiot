@@ -46,3 +46,26 @@ export const FRENCH = cards('fr-FR', [
   ['À plus tard', 'See you later'],
   ['Bravo !', 'Well done!'],
 ])
+
+export const GERMAN = cards('de-DE', [
+  ['Hallo, wie geht’s?', 'Hi, how are you?', 'VEE gayts'],
+  ['Ich heiße…', 'My name is…', 'ish HY-seh'],
+  ['Freut mich', 'Nice to meet you', 'FROYT mish'],
+  ['Wo ist die Toilette?', 'Where is the bathroom?', 'voh ist dee toy-LET-eh'],
+  ['Ein Bier, bitte', 'A beer, please', 'BIT-teh'],
+  ['Los geht’s!', "Let's go!", 'lohs GAYTS'],
+  ['Ich bin müde', "I'm tired", 'MÜ-deh: say "ee" with rounded lips'],
+  ['Noch eine!', 'One more!', 'nokh EYE-neh'],
+  ['Wie viel kostet das?', 'How much does it cost?', 'vee FEEL'],
+  ['Ich verstehe nicht', "I don't understand", 'fer-SHTAY-eh nisht'],
+  ['Sprechen Sie Englisch?', 'Do you speak English?', 'SHPREKH-en zee'],
+  ['Ich habe Hunger', "I'm hungry", 'literally "I have hunger"'],
+  ['Stark!', 'Strong! / Awesome!', 'shtark'],
+  ['Bis später', 'See you later', 'bis SHPAY-ter'],
+  ['Entschuldigung', "Sorry / Excuse me", 'ent-SHOOL-dee-goong'],
+  ['Wie spät ist es?', 'What time is it?'],
+  ['Das gefällt mir', 'I like that', 'geh-FELT meer'],
+  ['Schritt für Schritt', 'Step by step', 'Just like these reps'],
+  ['Gut gemacht!', 'Well done!', 'goot geh-MAKHT'],
+  ['Gute Nacht', 'Good night', 'GOO-teh nakht'],
+])
