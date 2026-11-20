@@ -22,7 +22,7 @@ It's a web app people add to their phone's home screen, so it works on iPhone an
 | To change… | Edit |
 | --- | --- |
 | App name, mascot name, tagline, what things are called | `src/config/brand.ts`. The page title, home screen name and welcome logo all follow it. |
-| Logo and mascot pictures | `public/logo.svg`, `public/wordmark-art.svg` (the welcome logo without its text) and the PNGs in `public/icons/` |
+| Logo and mascot pictures | `public/logo.png`, the PNGs in `public/icons/`, and the welcome animation in `public/mascot/` (the scene, plus Reppy's arm on its own layer) |
 | Squad sizes, sets per day, points | `src/config/rules.ts` (and the matching checks in `supabase/migrations/0005_reprascal.sql`) |
 | Turn a feature on or off | `src/config/features.ts`, or set `VITE_FEATURES_OFF=chat,publicSquads` for one deployment |
 | Add a channel | Write it in `src/channels/` and list it in `src/channels/registry.ts` |

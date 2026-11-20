@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BRAND } from '../config/brand'
-import { Wordmark } from '../components/Wordmark'
+import { Mascot } from '../components/Mascot'
 import { InstallButton } from '../components/InstallApp'
 import { errorText, supabase } from '../lib/supabase'
 
@@ -22,8 +22,8 @@ export function Welcome() {
 
   return (
     <main className="screen">
-      <div className="wiggle" style={{ display: 'flex', justifyContent: 'center', margin: '36px 0 12px' }}>
-        <Wordmark />
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '8px 0 4px' }}>
+        <Mascot />
       </div>
       <p className="center" style={{ margin: '8px 0 6px', fontSize: 18, fontWeight: 600 }}>{BRAND.tagline}</p>
       <p className="center muted" style={{ margin: '0 0 24px' }}>

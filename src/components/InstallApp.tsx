@@ -138,7 +138,7 @@ export function InstallCard({ dismissable = false, style }: { dismissable?: bool
     <section className="card stack install-card" aria-labelledby="install-card-h" style={style}>
       <div className="row between" style={{ alignItems: 'flex-start' }}>
         <div className="row" style={{ gap: 12 }}>
-          <img src="/logo.svg" width={44} height={44} alt="" />
+          <img src="/icons/icon-192.png" width={44} height={44} alt="" style={{ borderRadius: 10 }} />
           <div>
             <h2 id="install-card-h" style={{ fontSize: 16, margin: 0 }}>Put {BRAND.name} on your home screen</h2>
             <p className="small muted" style={{ margin: 0 }}>Opens like a real app, and reminders work on every phone.</p>
