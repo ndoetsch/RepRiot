@@ -45,7 +45,7 @@ export function trackChannel(spec: TrackSpec): Channel {
         {card.hint && <p className="small muted" style={{ margin: 0 }}>{card.hint}</p>}
         <div className="row between" style={{ marginTop: 'auto' }}>
           <button type="button" className="btn btn-ghost btn-sm" onClick={() => go(-1)}>Back</button>
-          <button type="button" className="btn btn-ghost btn-sm" onClick={() => say(card.say ?? `${card.title}. ${card.body}`, card.lang)} aria-label="Read it again">🔊</button>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={() => say(card.say ?? `${card.title}. ${card.body}`, card.lang, true)} aria-label="Read it again">🔊</button>
           <button type="button" className="btn btn-ghost btn-sm" onClick={() => go(1)}>Next</button>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { Loading } from '../components/Loading'
 import { Logo } from '../components/Logo'
 import { ChannelPicker } from '../components/ChannelPicker'
 import { channelById, favoriteChannel } from '../channels/registry'
-import { readAloud, speak, stopSpeaking } from '../channels/speech'
+import { onSpeechProblem, readAloud, speak, speechProblem, stopSpeaking } from '../channels/speech'
 import { RULES } from '../config/rules'
 import { useAuth } from '../lib/auth'
 import { useCrew } from '../lib/crew'
@@ -33,9 +33,11 @@ export function DoIt() {
   const [channelId, setChannelId] = useState(favoriteChannel.get)
   const [aloud, setAloud] = useState(readAloud.get)
   const channel = channelById(channelId)
-  const say = useCallback((text: string, lang?: string) => {
-    if (aloud) speak(text, lang)
+  const say = useCallback((text: string, lang?: string, now?: boolean) => {
+    if (aloud || now) speak(text, lang)
   }, [aloud])
+  const [voiceProblem, setVoiceProblem] = useState(speechProblem)
+  useEffect(() => onSpeechProblem(() => setVoiceProblem(speechProblem())), [])
 
   useEffect(() => stopSpeaking, [])
 
@@ -121,6 +123,9 @@ export function DoIt() {
         <button type="button" className="link-btn small" style={{ alignSelf: 'flex-start', minHeight: 36 }} aria-pressed={aloud} onClick={toggleAloud}>
           {aloud ? '🔊 Reading out loud' : '🔈 Read it out loud'}
         </button>
+      )}
+      {voiceProblem && channel.id !== 'form' && channel.id !== 'video' && (
+        <p className="small muted" role="status" style={{ margin: '2px 0 0' }}>{voiceProblem}</p>
       )}
 
       <h1 style={{ fontSize: 24, marginTop: 10 }}>{exerciseLabel(exercise)}</h1>

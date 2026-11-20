@@ -1,6 +1,6 @@
 import { isOn } from '../config/features'
 import { GREEK_GODS } from './content/greekGods'
-import { FRENCH, SPANISH } from './content/languages'
+import { FRENCH, GERMAN, SPANISH } from './content/languages'
 import { form } from './form'
 import { jokes } from './jokes'
 import { news } from './news'
@@ -20,6 +20,7 @@ const ALL: Channel[] = [
   trackChannel({ id: 'greek-gods', name: 'Greek gods', emoji: '⚡', blurb: 'Meet a new god or hero every set', shelf: 'Learn', cards: GREEK_GODS }),
   trackChannel({ id: 'spanish', name: 'Spanish', emoji: '🇪🇸', blurb: 'One handy phrase per set', shelf: 'Learn', cards: SPANISH }),
   trackChannel({ id: 'french', name: 'French', emoji: '🇫🇷', blurb: 'One handy phrase per set', shelf: 'Learn', cards: FRENCH }),
+  trackChannel({ id: 'german', name: 'German', emoji: '🇩🇪', blurb: 'One handy phrase per set', shelf: 'Learn', cards: GERMAN }),
   jokes,
   news,
   sports,
