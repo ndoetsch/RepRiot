@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BRAND } from '../config/brand'
+import { Wordmark } from '../components/Wordmark'
 import { errorText, supabase } from '../lib/supabase'
 
 /** Turn on once Google sign-in is set up in Supabase (Authentication > Providers > Google). */
@@ -21,11 +22,11 @@ export function Welcome() {
   return (
     <main className="screen">
       <div className="wiggle" style={{ display: 'flex', justifyContent: 'center', margin: '36px 0 12px' }}>
-        <img src="/wordmark.svg" alt={BRAND.name} width={320} height={100} style={{ maxWidth: '100%', height: 'auto' }} />
+        <Wordmark />
       </div>
       <p className="center" style={{ margin: '8px 0 6px', fontSize: 18, fontWeight: 600 }}>{BRAND.tagline}</p>
       <p className="center muted" style={{ margin: '0 0 24px' }}>
-        Tiny workouts all day with your {BRAND.words.group}. While you rep, watch the form, learn about Greek gods, pick up Spanish, catch your team's score, or groan at a dad joke.
+        Tiny workouts all day with your {BRAND.words.group}. While you rep, watch the form, learn about Greek gods, pick up Spanish, catch your team's score, or groan at a dad joke. {BRAND.mascot.fullName} will be cheering you on.
       </p>
       <div className="stack push">
         {GOOGLE_ENABLED && (

@@ -1,8 +1,8 @@
-# RepRiot
+# RepRascal
 
 **The app that makes moving the most entertaining part of your day.**
 
-RepRiot is a fun, energetic, social fitness app: a playful rebellion against boring workouts. You do tiny sets (a minute or less) a few times a day, and they add up. Do it solo or with a squad of friends, and while you rep, pick what's on your screen: the move's animation, a demo video, a lesson on Greek gods, a Spanish phrase, a dad joke, today's headlines, or your team's latest score.
+RepRascal is a fun, energetic, social fitness app: a playful rebellion against boring workouts. Its mascot is Reppy the Raccoon. You do tiny sets (a minute or less) a few times a day, and they add up. Do it solo or with a squad of friends, and while you rep, pick what's on your screen: the move's animation, a demo video, a lesson on Greek gods, a Spanish phrase, a dad joke, today's headlines, or your team's latest score.
 
 It's a web app people add to their phone's home screen, so it works on iPhone and Android with no App Store. It started as a copy of [Fitluck](https://github.com/ndoetsch/fitluck) and now lives on its own.
 
@@ -21,8 +21,9 @@ It's a web app people add to their phone's home screen, so it works on iPhone an
 
 | To change… | Edit |
 | --- | --- |
-| Name, tagline, what things are called | `src/config/brand.ts` |
-| Squad sizes, sets per day, points | `src/config/rules.ts` (and the matching checks in `supabase/migrations/0005_repriot.sql`) |
+| App name, mascot name, tagline, what things are called | `src/config/brand.ts`. The page title, home screen name and welcome logo all follow it. |
+| Logo and mascot pictures | `public/logo.svg`, `public/wordmark-art.svg` (the welcome logo without its text) and the PNGs in `public/icons/` |
+| Squad sizes, sets per day, points | `src/config/rules.ts` (and the matching checks in `supabase/migrations/0005_reprascal.sql`) |
 | Turn a feature on or off | `src/config/features.ts`, or set `VITE_FEATURES_OFF=chat,publicSquads` for one deployment |
 | Add a channel | Write it in `src/channels/` and list it in `src/channels/registry.ts` |
 | Add a learning track (history, a language, trivia…) | Write a list of cards in `src/channels/content/` and add one `trackChannel(...)` line in the registry |
@@ -41,9 +42,9 @@ It's a web app people add to their phone's home screen, so it works on iPhone an
 ## Setting up a new Supabase project
 
 1. Create a project at supabase.com.
-2. Open **SQL Editor → New query**, and run each file in `supabase/migrations/` in order (0001 through 0005). In `0003_reminders.sql`, change `repriot.vercel.app` to the app's real address first if it's different.
+2. Open **SQL Editor → New query**, and run each file in `supabase/migrations/` in order (0001 through 0005). In `0003_reminders.sql`, change `rep-riot.vercel.app` to the app's real address first if it's different.
 3. Under **Authentication → URL Configuration**, set **Site URL** to the app's web address and add it under **Redirect URLs** too.
-4. Copy **Project Settings → API → Project URL** and the **anon public** key into the environment variables below.
+4. Copy **Project Settings → API → Project URL** and the **publishable** key (or the older **anon public** key) into the environment variables below.
 
 ## Environment variables
 

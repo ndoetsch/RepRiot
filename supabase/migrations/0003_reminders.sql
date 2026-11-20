@@ -1,4 +1,4 @@
--- RepRiot (from Fitluck) reminders: phone notifications at the times each person picks.
+-- RepRascal (from Fitluck) reminders: phone notifications at the times each person picks.
 -- Every 15 minutes the database asks the app to send whatever reminders are due.
 -- Run after 0002_fun_layer.sql.
 
@@ -157,8 +157,9 @@ select cron.schedule(
   '*/15 * * * *',
   $job$
   select net.http_post(
-    -- Change this to the app's real web address if it isn't repriot.vercel.app.
-    url := 'https://repriot.vercel.app/api/reminders',
+    -- Change this to the app's real web address if it isn't rep-riot.vercel.app.
+    -- (The job keeps its original name, repriot-reminders, so re-running this replaces it.)
+    url := 'https://rep-riot.vercel.app/api/reminders',
     headers := jsonb_build_object(
       'content-type', 'application/json',
       'authorization', 'Bearer ' || (select value from private.secrets where name = 'reminders')

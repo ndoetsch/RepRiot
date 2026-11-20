@@ -1,4 +1,4 @@
--- RepRiot (from Fitluck) core loop schema.
+-- RepRascal (from Fitluck) core loop schema.
 -- Run this once in the Supabase dashboard: SQL Editor > New query > paste > Run.
 
 -- ---------------------------------------------------------------------------
