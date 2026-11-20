@@ -5,6 +5,7 @@ import './index.css'
 import { AuthProvider, pendingInvite, useAuth } from './lib/auth'
 import { lastCrew } from './lib/crew'
 import { registerServiceWorker } from './lib/push'
+import { listenForInstall } from './lib/install'
 import { isConfigured } from './lib/supabase'
 import { Loading } from './components/Loading'
 import { SetupNeeded } from './pages/SetupNeeded'
@@ -69,6 +70,7 @@ function App() {
 }
 
 registerServiceWorker()
+listenForInstall()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -246,3 +246,7 @@ textarea { min-height: 72px; resize: vertical; }
   .wiggle { animation: wiggle 2.4s ease-in-out infinite; transform-origin: 50% 80%; }
   @keyframes wiggle { 0%, 80%, 100% { transform: rotate(0); } 85% { transform: rotate(-6deg); } 90% { transform: rotate(6deg); } 95% { transform: rotate(-3deg); } }
 }
+
+/* Install to home screen */
+.install-steps { margin: 0; padding-left: 22px; display: grid; gap: 10px; font-size: 16px; line-height: 1.4; }
+.install-card { border-color: var(--accent); background: var(--accent-soft); }

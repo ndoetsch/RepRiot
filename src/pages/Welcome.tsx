@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BRAND } from '../config/brand'
 import { Wordmark } from '../components/Wordmark'
+import { InstallButton } from '../components/InstallApp'
 import { errorText, supabase } from '../lib/supabase'
 
 /** Turn on once Google sign-in is set up in Supabase (Authentication > Providers > Google). */
@@ -29,6 +30,7 @@ export function Welcome() {
         Tiny workouts all day with your {BRAND.words.group}. While you rep, watch the form, learn about Greek gods, pick up Spanish, catch your team's score, or groan at a dad joke. {BRAND.mascot.fullName} will be cheering you on.
       </p>
       <div className="stack push">
+        <InstallButton autoOpen />
         {GOOGLE_ENABLED && (
         <button type="button" className="btn btn-ghost" onClick={google}>
           <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
