@@ -1,3 +1,4 @@
+import { InstallCard, ShareAppButton } from '../components/InstallApp'
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Avatar } from '../components/Avatar'
@@ -104,7 +105,10 @@ export function CrewInfo() {
           </div>
         )}
 
+        <InstallCard style={{ marginTop: 24 }} />
+
         <div className="stack" style={{ marginTop: 24 }}>
+          <ShareAppButton />
           <Link to="/crews" className="btn btn-ghost">{`Switch or start a ${BRAND.words.group}`}</Link>
           <Link to="/setup" className="btn btn-ghost">Edit my profile</Link>
           <button type="button" className="link-btn" onClick={() => void signOut().then(() => navigate('/'))}>Sign out</button>

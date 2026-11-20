@@ -1,3 +1,4 @@
+import { InstallCard } from '../components/InstallApp'
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Avatar } from '../components/Avatar'
@@ -49,6 +50,8 @@ export function Today() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
           </Link>
         </div>
+
+        <InstallCard dismissable style={{ marginBottom: 12 }} />
 
         {stats && <ClimbCard stats={stats} myPointsThisWeek={stats.weekPoints.get(profile.id) ?? 0} />}
 
