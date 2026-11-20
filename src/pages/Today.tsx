@@ -9,7 +9,9 @@ import { lastCrew, useCrew } from '../lib/crew'
 import { useStats } from '../lib/stats'
 import { weekdayName } from '../lib/dates'
 import { exerciseLabel } from '../lib/format'
-import { MAX_CREW, SETS_PER_DAY } from '../lib/types'
+import { BRAND } from '../config/brand'
+import { RULES } from '../config/rules'
+import { SETS_PER_DAY } from '../lib/types'
 
 export function Today() {
   const { crewId = '' } = useParams()
@@ -29,7 +31,8 @@ export function Today() {
   const doneFor = (exerciseId: string) => myLogs.filter((l) => l.exercise_id === exerciseId).length
   const total = exercises.length * SETS_PER_DAY
   const done = myLogs.length
-  const iBrought = exercises.some((e) => e.user_id === profile.id)
+  const myMoves = exercises.filter((e) => e.user_id === profile.id).length
+  const iBrought = myMoves > 0
   const movedToday = new Set(todayLogs.map((l) => l.user_id))
   const nameOf = (id: string) => (id === profile.id ? 'you' : members.find((m) => m.id === id)?.display_name ?? 'someone')
 
@@ -41,7 +44,7 @@ export function Today() {
             <span className="eyebrow">{weekdayName()}</span>
             <h1 style={{ fontSize: 26 }}>Today</h1>
           </div>
-          <Link to="/crews" className="btn btn-ghost btn-sm" aria-label={`Crew: ${crew.name}. Switch crew`}>
+          <Link to="/crews" className="btn btn-ghost btn-sm" aria-label={`${BRAND.words.Group}: ${crew.name}. Switch ${BRAND.words.group}`}>
             {crew.name}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
           </Link>
@@ -58,17 +61,18 @@ export function Today() {
             <div style={{ height: '100%', width: `${total ? (done / total) * 100 : 0}%`, background: 'var(--primary)', transition: 'width .3s' }} />
           </div>
           <p className="small muted" style={{ margin: '8px 0 0' }}>
-            {total === 0 ? 'No exercises on the table yet.' : done >= total ? 'Every potluck exercise done today. Legend.' : `About ${Math.max(1, total - done)} minutes of moving left.`}
+            {total === 0 ? 'No moves in the lineup yet.' : done >= total ? 'Every move done today. Absolute legend.' : `About ${Math.max(1, total - done)} minutes of moving left.`}
           </p>
         </div>
 
         {!iBrought && (
           <Link to={`/crew/${crewId}/bring`} className="card" style={{ marginTop: 12, display: 'block', textDecoration: 'none', color: 'inherit', borderColor: 'var(--primary)', background: 'var(--primary-soft)' }}>
-            <b>Bring your exercise</b>
-            <p className="small" style={{ margin: '4px 0 0' }}>Pick one exercise and its GIF for the crew. Tap to start.</p>
+            <b>Bring your {crew.solo ? 'moves' : 'move'}</b>
+            <p className="small" style={{ margin: '4px 0 0' }}>{crew.solo ? `Pick up to ${RULES.maxSoloMoves} moves and their GIFs.` : `Pick one move and its GIF for the ${BRAND.words.group}.`} Tap to start.</p>
           </Link>
         )}
 
+        {!crew.solo && <>
         <h2 style={{ fontSize: 15, margin: '18px 0 8px' }}>Who's moving today</h2>
         <div className="strip">
           {members.map((m) => (
@@ -78,7 +82,7 @@ export function Today() {
               <span className="sr-only">{movedToday.has(m.id) ? 'has moved today' : 'has not moved yet today'}</span>
             </div>
           ))}
-          {members.length < MAX_CREW && (
+          {members.length < crew.max_members && (
             <Link to={`/crew/${crewId}/crew`} className="member" style={{ textDecoration: 'none', color: 'inherit' }}>
               <span className="ring"><span className="open-spot">+</span></span>
               <span className="name">Invite</span>
@@ -86,7 +90,12 @@ export function Today() {
           )}
         </div>
 
-        <h2 style={{ fontSize: 15, margin: '16px 0 8px' }}>Your potluck</h2>
+        </>}
+
+        <div className="row between" style={{ margin: '16px 0 8px' }}>
+          <h2 style={{ fontSize: 15, margin: 0 }}>Today's {BRAND.words.lineup}</h2>
+          {crew.solo && iBrought && myMoves < RULES.maxSoloMoves && <Link to={`/crew/${crewId}/bring`} className="link-btn small" style={{ minHeight: 0 }}>Add a move</Link>}
+        </div>
         <div className="stack">
           {exercises.map((e) => {
             const d = doneFor(e.id)
@@ -98,7 +107,7 @@ export function Today() {
                 <span>
                   <span className="name">{exerciseLabel(e)}</span>
                   <br />
-                  <span className="small muted">brought by {nameOf(e.user_id)}</span>
+                  {!crew.solo && <span className="small muted">brought by {nameOf(e.user_id)}</span>}
                 </span>
                 <span className="dots" aria-label={`${d} of ${SETS_PER_DAY} sets done`}>
                   {Array.from({ length: SETS_PER_DAY }, (_, i) => <span key={i} className={`dot ${i < d ? 'on' : ''}`} />)}
@@ -111,7 +120,7 @@ export function Today() {
               <Link key={e.id} to={`/crew/${crewId}/do/${e.id}`} className="ex-row">{inner}</Link>
             )
           })}
-          {exercises.length === 0 && <p className="muted small">Once people bring their exercises, they show up here.</p>}
+          {exercises.length === 0 && <p className="muted small">Once people bring their moves, they show up here.</p>}
         </div>
       </main>
       <TabBar crewId={crewId} />

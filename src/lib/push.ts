@@ -60,7 +60,7 @@ export async function savePrefs(userId: string, prefs: Partial<ReminderPrefs>) {
 export async function turnOn(userId: string, hours: number[]): Promise<void> {
   if (!VAPID) throw new Error('Reminders are not set up on the server yet.')
   const permission = await Notification.requestPermission()
-  if (permission !== 'granted') throw new Error('Notifications are blocked. Turn them on for Fitluck in your phone settings, then try again.')
+  if (permission !== 'granted') throw new Error('Notifications are blocked. Turn them on for RepRiot in your phone settings, then try again.')
   const reg = await navigator.serviceWorker.register('/sw.js')
   await navigator.serviceWorker.ready
   const sub = (await reg.pushManager.getSubscription()) ?? (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: keyBytes(VAPID) }))

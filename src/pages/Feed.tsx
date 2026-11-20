@@ -87,7 +87,7 @@ export function Feed() {
   return (
     <>
       <main className="screen with-tabs">
-        <div className="top"><h1 style={{ fontSize: 26 }}>Crew feed</h1></div>
+        <div className="top"><h1 style={{ fontSize: 26 }}>Squad feed</h1></div>
         {error && <p className="error" role="alert">{error}</p>}
         {!feed && !error && <div className="spinner" aria-label="Loading" />}
         {feed && feed.logs.length === 0 && (

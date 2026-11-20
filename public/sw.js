@@ -1,9 +1,9 @@
-// Fitluck service worker: shows reminders and opens the app when one is tapped.
+// RepRiot service worker: shows reminders and opens the app when one is tapped.
 self.addEventListener('install', () => self.skipWaiting())
 self.addEventListener('activate', (event) => event.waitUntil(self.clients.claim()))
 
 self.addEventListener('push', (event) => {
-  let data = { title: 'Fitluck', body: 'Time for a quick set.', url: '/' }
+  let data = { title: 'RepRiot', body: 'Time for a quick set.', url: '/' }
   try {
     data = { ...data, ...event.data.json() }
   } catch {
@@ -14,7 +14,7 @@ self.addEventListener('push', (event) => {
       body: data.body,
       icon: '/icons/icon-192.png',
       badge: '/icons/icon-192.png',
-      tag: 'fitluck-reminder',
+      tag: 'repriot-reminder',
       data: { url: data.url },
     }),
   )

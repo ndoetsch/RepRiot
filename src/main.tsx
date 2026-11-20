@@ -20,6 +20,9 @@ import { Chat } from './pages/Chat'
 import { Leaders } from './pages/Leaders'
 import { Feed } from './pages/Feed'
 import { CrewInfo } from './pages/CrewInfo'
+import { Challenges } from './pages/Challenges'
+import { Discover } from './pages/Discover'
+import { isOn } from './config/features'
 
 /** Only for signed-in people who have finished their profile. */
 function Private({ children, allowUnfinished = false }: { children: ReactNode; allowUnfinished?: boolean }) {
@@ -51,12 +54,14 @@ function App() {
       <Route path="/join/:code" element={<Join />} />
       <Route path="/setup" element={<Private allowUnfinished><ProfileSetup /></Private>} />
       <Route path="/crews" element={<Private><Crews /></Private>} />
+      {isOn('publicSquads') && <Route path="/discover" element={<Private><Discover /></Private>} />}
       <Route path="/crew/:crewId" element={<Private><Today /></Private>} />
       <Route path="/crew/:crewId/bring" element={<Private><Bring /></Private>} />
       <Route path="/crew/:crewId/do/:exerciseId" element={<Private><DoIt /></Private>} />
       <Route path="/crew/:crewId/feed" element={<Private><Feed /></Private>} />
       <Route path="/crew/:crewId/leaders" element={<Private><Leaders /></Private>} />
-      <Route path="/crew/:crewId/chat" element={<Private><Chat /></Private>} />
+      <Route path="/crew/:crewId/challenges" element={<Private><Challenges /></Private>} />
+      {isOn('chat') && <Route path="/crew/:crewId/chat" element={<Private><Chat /></Private>} />}
       <Route path="/crew/:crewId/crew" element={<Private><CrewInfo /></Private>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

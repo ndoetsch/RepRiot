@@ -1,3 +1,5 @@
+import { RULES } from '../config/rules'
+
 export type Profile = {
   id: string
   display_name: string
@@ -15,6 +17,13 @@ export type Crew = {
   name: string
   invite_code: string
   created_by: string
+  /** Just one person playing on their own. */
+  solo: boolean
+  /** Anyone can find and join it. Private unless the organizer opens it up. */
+  is_public: boolean
+  /** The organizer's cap: up to 8 when private, up to 20 when public. */
+  max_members: number
+  description: string
 }
 
 export type Exercise = {
@@ -51,16 +60,25 @@ export type Reaction = {
 }
 
 export const REACTIONS = ['🔥', '💪', '😂', '👏'] as const
-export const SETS_PER_DAY = 3
-export const MAX_CREW = 5
+export const SETS_PER_DAY = RULES.setsPerDay
 
 export type Challenge = {
   id: string
   crew_id: string
   created_by: string
   title: string
-  kind: 'points' | 'crew_goal'
+  /**
+   * points   : most points wins
+   * crew_goal: the squad works toward a number of sets together
+   * gauntlet : proposed, debated and voted on by the squad; everyone's in once it passes
+   * open     : a dare anyone in the squad can opt into
+   */
+  kind: 'points' | 'crew_goal' | 'gauntlet' | 'open'
+  /** Sets together (crew_goal) or sets each (gauntlet, open). */
   goal: number | null
+  status: 'voting' | 'active' | 'rejected'
+  length_days: number
+  details: string
   start_date: string
   end_date: string
   stakes: string
@@ -76,6 +94,10 @@ export type ChatMessage = {
   created_at: string
 }
 
-export const POINTS_PER_SET = 10
-export const POTLUCK_BONUS = 25
-export const FREEZES_PER_MONTH = 3
+export type ChallengeVote = { challenge_id: string; user_id: string; vote: boolean }
+export type ChallengeParticipant = { challenge_id: string; user_id: string }
+export type ChallengeComment = { id: string; challenge_id: string; user_id: string; body: string; created_at: string }
+
+export const POINTS_PER_SET = RULES.pointsPerSet
+export const POTLUCK_BONUS = RULES.lineupBonus
+export const FREEZES_PER_MONTH = RULES.freezesPerMonth

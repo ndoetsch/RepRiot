@@ -76,7 +76,7 @@ export function Reminders({ userId }: { userId: string }) {
         <p className="small muted" style={{ margin: 0 }}>Reminders are almost ready. They switch on once the app's notification keys are added.</p>
       ) : needsInstall ? (
         <p className="small" style={{ margin: 0 }}>
-          On iPhone, reminders only work from the home screen app. In Safari, tap the Share button, then <b>Add to Home Screen</b>. Open Fitluck from there and come back here.
+          On iPhone, reminders only work from the home screen app. In Safari, tap the Share button, then <b>Add to Home Screen</b>. Open RepRiot from there and come back here.
         </p>
       ) : unsupported ? (
         <p className="small muted" style={{ margin: 0 }}>This browser can't show reminders. Try Chrome on Android, or the home screen app on iPhone.</p>

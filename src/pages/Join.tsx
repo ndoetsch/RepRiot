@@ -5,9 +5,9 @@ import { Loading } from '../components/Loading'
 import { pendingInvite, useAuth } from '../lib/auth'
 import { lastCrew } from '../lib/crew'
 import { errorText, supabase } from '../lib/supabase'
-import { MAX_CREW } from '../lib/types'
+import { BRAND } from '../config/brand'
 
-type Preview = { id: string; name: string; member_count: number; member_names: string[] }
+type Preview = { id: string; name: string; member_count: number; member_names: string[]; max_members: number }
 
 export function Join() {
   const { code = '' } = useParams()
@@ -45,7 +45,7 @@ export function Join() {
     return (
       <main className="screen center">
         <div style={{ margin: '36px auto 12px' }}><Logo width={88} /></div>
-        <h1 style={{ fontSize: 26 }}>You're invited to a Fitluck crew</h1>
+        <h1 style={{ fontSize: 26 }}>You're invited to a {BRAND.name} {BRAND.words.group}</h1>
         <p className="muted">Sign in or create an account and you'll join right after.</p>
         <Link to="/" className="btn btn-primary push">Get started</Link>
       </main>
@@ -73,26 +73,26 @@ export function Join() {
     return (
       <main className="screen">
         <h1 style={{ fontSize: 24 }}>That invite link doesn't work</h1>
-        <p className="muted">Ask your friend to send it again, or start your own crew.</p>
-        <Link to="/crews" className="btn btn-primary push">Go to my crews</Link>
+        <p className="muted">Ask your friend to send it again, or start your own {BRAND.words.group}.</p>
+        <Link to="/crews" className="btn btn-primary push">Go to my {BRAND.words.groups}</Link>
       </main>
     )
   }
 
-  const full = preview.member_count >= MAX_CREW
+  const full = preview.member_count >= preview.max_members
   return (
     <main className="screen">
-      <span className="eyebrow">Join your crew</span>
+      <span className="eyebrow">Join your {BRAND.words.group}</span>
       <div className="card stack" style={{ marginTop: 12 }}>
         <h1 style={{ fontSize: 22 }}>{preview.name}</h1>
-        <p className="muted small" style={{ margin: 0 }}>{preview.member_count} of {MAX_CREW} spots taken</p>
+        <p className="muted small" style={{ margin: 0 }}>{preview.member_count} of {preview.max_members} spots taken</p>
         <p style={{ margin: 0 }}>{preview.member_names.join(', ')}</p>
       </div>
-      <p className="small muted">You can be in more than one crew. Each crew has its own potluck.</p>
+      <p className="small muted">You can be in more than one {BRAND.words.group}. Each one has its own {BRAND.words.lineup} of moves.</p>
       {error && <p className="error" role="alert">{error}</p>}
       <div className="stack push">
         <button type="button" className="btn btn-primary" onClick={join} disabled={busy || full}>
-          {full ? 'This crew is full' : busy ? 'Joining…' : `Join ${preview.name}`}
+          {full ? `This ${BRAND.words.group} is full` : busy ? 'Joining…' : `Join ${preview.name}`}
         </button>
         <button type="button" className="btn btn-ghost" onClick={() => { pendingInvite.clear(); navigate('/crews') }}>Not now</button>
       </div>

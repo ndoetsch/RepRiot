@@ -4,10 +4,11 @@ import { createClient } from '@supabase/supabase-js'
 import { sendNotification, setVapidDetails } from 'web-push'
 
 const MESSAGES = [
-  'Your crew is moving. Are you?',
-  'Quick one: your potluck is waiting.',
+  'Your squad is moving. Are you?',
+  'Riot break! One quick set.',
   'A minute now beats a streak lost later.',
-  'Your crew can see who moved today.',
+  'Your squad can see who moved today.',
+  'Boring workouts are cancelled. This one is fun.',
 ]
 
 type Due = { endpoint: string; p256dh: string; auth: string; sets_left: number }
@@ -25,7 +26,7 @@ export async function POST(request: Request): Promise<Response> {
   const { data, error } = await db.rpc('due_reminders', { p_secret: secret })
   if (error) return new Response(error.message, { status: error.code === '42501' ? 401 : 500 })
 
-  setVapidDetails('https://fitluck.vercel.app', publicKey, privateKey)
+  setVapidDetails('https://repriot.vercel.app', publicKey, privateKey)
   const due = (data ?? []) as Due[]
   let sent = 0
   let dropped = 0

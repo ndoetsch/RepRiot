@@ -1,4 +1,4 @@
--- Fitluck reminders: phone notifications at the times each person picks.
+-- RepRiot (from Fitluck) reminders: phone notifications at the times each person picks.
 -- Every 15 minutes the database asks the app to send whatever reminders are due.
 -- Run after 0002_fun_layer.sql.
 
@@ -149,15 +149,16 @@ grant execute on function public.drop_push_subscription(text, text) to anon, aut
 create extension if not exists pg_cron with schema pg_catalog;
 create extension if not exists pg_net with schema extensions;
 
-select cron.unschedule('fitluck-reminders')
-where exists (select 1 from cron.job where jobname = 'fitluck-reminders');
+select cron.unschedule('repriot-reminders')
+where exists (select 1 from cron.job where jobname = 'repriot-reminders');
 
 select cron.schedule(
-  'fitluck-reminders',
+  'repriot-reminders',
   '*/15 * * * *',
   $job$
   select net.http_post(
-    url := 'https://fitluck.vercel.app/api/reminders',
+    -- Change this to the app's real web address if it isn't repriot.vercel.app.
+    url := 'https://repriot.vercel.app/api/reminders',
     headers := jsonb_build_object(
       'content-type', 'application/json',
       'authorization', 'Bearer ' || (select value from private.secrets where name = 'reminders')

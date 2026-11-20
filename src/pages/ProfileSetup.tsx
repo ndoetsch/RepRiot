@@ -26,7 +26,7 @@ export function ProfileSetup() {
   async function save(e: FormEvent) {
     e.preventDefault()
     if (!profile) return
-    if (!name.trim()) return setError('Add your name so your crew knows who you are.')
+    if (!name.trim()) return setError('Add your name so your squad knows who you are.')
     setBusy(true)
     const { error: err } = await supabase
       .from('profiles')

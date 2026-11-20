@@ -124,7 +124,7 @@ export function Chat() {
   return (
     <>
       <main className="screen with-tabs" style={{ paddingBottom: 'calc(150px + env(safe-area-inset-bottom))' }}>
-        <div className="top"><h1 style={{ fontSize: 26 }}>Crew chat</h1></div>
+        <div className="top"><h1 style={{ fontSize: 26 }}>Squad chat</h1></div>
         {!msgs && !error && <div className="spinner" aria-label="Loading" />}
         {msgs && msgs.length === 0 && <p className="muted small">No messages yet. Talk some trash, or hype someone up.</p>}
         <div className="msgs" aria-live="polite">
@@ -149,7 +149,7 @@ export function Chat() {
             <button type="button" className="gif-btn" onClick={() => setPicking(true)} aria-label="Send a GIF">GIF</button>
           )}
           <label htmlFor="chat-input" className="sr-only">Message</label>
-          <input id="chat-input" type="text" maxLength={1000} value={text} onChange={(e) => setText(e.target.value)} placeholder="Message the crew" autoComplete="off" />
+          <input id="chat-input" type="text" maxLength={1000} value={text} onChange={(e) => setText(e.target.value)} placeholder="Message the squad" autoComplete="off" />
           <button type="submit" className="send" disabled={busy || !text.trim()}>Send</button>
         </form>
       </div>
