@@ -42,7 +42,7 @@ It's a web app people add to their phone's home screen, so it works on iPhone an
 ## Setting up a new Supabase project
 
 1. Create a project at supabase.com.
-2. Open **SQL Editor → New query**, and run each file in `supabase/migrations/` in order (0001 through 0005). In `0003_reminders.sql`, change `rep-riot.vercel.app` to the app's real address first if it's different.
+2. Open **SQL Editor → New query**, and run each file in `supabase/migrations/` in order (0001 through 0005). In `0003_reminders.sql`, change `reprascal.vercel.app` to the app's real address first if it's different.
 3. Under **Authentication → URL Configuration**, set **Site URL** to the app's web address and add it under **Redirect URLs** too.
 4. Copy **Project Settings → API → Project URL** and the **publishable** key (or the older **anon public** key) into the environment variables below.
 

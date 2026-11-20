@@ -26,7 +26,7 @@ export async function POST(request: Request): Promise<Response> {
   const { data, error } = await db.rpc('due_reminders', { p_secret: secret })
   if (error) return new Response(error.message, { status: error.code === '42501' ? 401 : 500 })
 
-  setVapidDetails(`https://${request.headers.get('host') ?? 'rep-riot.vercel.app'}`, publicKey, privateKey)
+  setVapidDetails(`https://${request.headers.get('host') ?? 'reprascal.vercel.app'}`, publicKey, privateKey)
   const due = (data ?? []) as Due[]
   let sent = 0
   let dropped = 0

@@ -149,17 +149,16 @@ grant execute on function public.drop_push_subscription(text, text) to anon, aut
 create extension if not exists pg_cron with schema pg_catalog;
 create extension if not exists pg_net with schema extensions;
 
-select cron.unschedule('repriot-reminders')
-where exists (select 1 from cron.job where jobname = 'repriot-reminders');
+select cron.unschedule(jobname) from cron.job
+where jobname in ('reprascal-reminders', 'repriot-reminders');
 
 select cron.schedule(
-  'repriot-reminders',
+  'reprascal-reminders',
   '*/15 * * * *',
   $job$
   select net.http_post(
-    -- Change this to the app's real web address if it isn't rep-riot.vercel.app.
-    -- (The job keeps its original name, repriot-reminders, so re-running this replaces it.)
-    url := 'https://rep-riot.vercel.app/api/reminders',
+    -- Change this to the app's real web address if it isn't reprascal.vercel.app.
+    url := 'https://reprascal.vercel.app/api/reminders',
     headers := jsonb_build_object(
       'content-type', 'application/json',
       'authorization', 'Bearer ' || (select value from private.secrets where name = 'reminders')
