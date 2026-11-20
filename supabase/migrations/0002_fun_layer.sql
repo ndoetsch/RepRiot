@@ -1,4 +1,4 @@
--- RepRiot (from Fitluck) fun layer: challenges with stakes, and crew chat.
+-- RepRascal (from Fitluck) fun layer: challenges with stakes, and crew chat.
 -- Points, streaks, freezes and badges are worked out from logged sets, so they need no tables.
 -- Run once in the Supabase dashboard: SQL Editor > New query > paste > Run.
 

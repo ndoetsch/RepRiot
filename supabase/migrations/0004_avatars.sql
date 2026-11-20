@@ -1,4 +1,4 @@
--- RepRiot (from Fitluck) profile pictures: each person can upload one photo to their own folder.
+-- RepRascal (from Fitluck) profile pictures: each person can upload one photo to their own folder.
 -- Run after 0003_reminders.sql.
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

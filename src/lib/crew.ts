@@ -1,3 +1,4 @@
+import { storageKey } from '../config/brand'
 import { useCallback, useEffect, useState } from 'react'
 import { supabase, errorText } from './supabase'
 import { localDate } from './dates'
@@ -71,7 +72,7 @@ export async function fetchMyCrews(userId: string): Promise<MyCrew[]> {
   return (crews.data as Crew[]).map((c) => ({ ...c, member_count: counts.get(c.id) ?? 1 }))
 }
 
-const LAST_CREW = 'repriot.lastCrew'
+const LAST_CREW = storageKey('lastCrew')
 export const lastCrew = {
   get: () => {
     try {

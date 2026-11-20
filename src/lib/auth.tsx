@@ -1,3 +1,4 @@
+import { storageKey } from '../config/brand'
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { isConfigured, supabase } from './supabase'
@@ -72,21 +73,21 @@ export function useAuth(): AuthState {
 export const pendingInvite = {
   get: () => {
     try {
-      return localStorage.getItem('repriot.invite')
+      return localStorage.getItem(storageKey('invite'))
     } catch {
       return null
     }
   },
   set: (code: string) => {
     try {
-      localStorage.setItem('repriot.invite', code)
+      localStorage.setItem(storageKey('invite'), code)
     } catch {
       /* private mode: the person will just need to tap the link again */
     }
   },
   clear: () => {
     try {
-      localStorage.removeItem('repriot.invite')
+      localStorage.removeItem(storageKey('invite'))
     } catch {
       /* ignore */
     }

@@ -1,6 +1,6 @@
 /**
  * The numbers that shape the game. Change them here, and match any that the
- * database also checks in supabase/migrations/0005_repriot.sql.
+ * database also checks in supabase/migrations/0005_reprascal.sql.
  */
 export const RULES = {
   /** Biggest a private squad can be. */

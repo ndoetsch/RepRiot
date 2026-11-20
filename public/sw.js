@@ -1,9 +1,9 @@
-// RepRiot service worker: shows reminders and opens the app when one is tapped.
+// Service worker: shows reminders and opens the app when one is tapped.
 self.addEventListener('install', () => self.skipWaiting())
 self.addEventListener('activate', (event) => event.waitUntil(self.clients.claim()))
 
 self.addEventListener('push', (event) => {
-  let data = { title: 'RepRiot', body: 'Time for a quick set.', url: '/' }
+  let data = { title: 'Quick set time!', body: 'Time for a quick set.', url: '/' }
   try {
     data = { ...data, ...event.data.json() }
   } catch {
@@ -14,7 +14,7 @@ self.addEventListener('push', (event) => {
       body: data.body,
       icon: '/icons/icon-192.png',
       badge: '/icons/icon-192.png',
-      tag: 'repriot-reminder',
+      tag: 'squad-reminder',
       data: { url: data.url },
     }),
   )

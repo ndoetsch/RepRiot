@@ -1,4 +1,4 @@
--- RepRiot: solo play, squads of up to 8, public squads up to 20,
+-- RepRascal: solo play, squads of up to 8, public squads up to 20,
 -- gauntlets the squad debates and votes on, and open dares people opt into.
 -- Run once in the Supabase dashboard (SQL Editor > New query > paste > Run), after 0001 to 0004.
 
@@ -173,7 +173,7 @@ create trigger move_limit
   for each row execute function public.enforce_move_limit();
 
 -- ---------------------------------------------------------------------------
--- Challenges, RepRiot style
+-- Challenges, RepRascal style
 --   gauntlet : someone proposes it, the squad debates and votes. It starts once
 --              more than half the squad votes yes. Everyone's in.
 --   open     : a dare. Starts right away; people opt in if they're brave.

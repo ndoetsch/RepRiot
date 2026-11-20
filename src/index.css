@@ -1,5 +1,5 @@
 :root {
-  /* RepRiot palette, from the raccoon: navy, electric green and cyan. */
+  /* RepRascal palette, from the raccoon: navy, electric green and cyan. */
   --ground: #f2f5fa;
   --card: #ffffff;
   --ink: #10234e;
@@ -205,7 +205,7 @@ textarea { min-height: 72px; resize: vertical; }
 .icon-pick { aspect-ratio: 1; border-radius: 14px; border: 1px solid var(--line); background: #fff; font-size: 24px; min-height: 44px; }
 .icon-pick[aria-pressed='true'] { border: 2px solid var(--primary); background: var(--primary-soft); }
 
-/* RepRiot: channels (what's on screen while you move) */
+/* channels (what's on screen while you move) */
 .channel-picker { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 10px; margin: 0 -20px; padding-left: 20px; padding-right: 20px; scrollbar-width: none; }
 .channel-picker::-webkit-scrollbar { display: none; }
 .channel-chip { flex-shrink: 0; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 8px 14px; min-height: 40px; font-size: 14px; font-weight: 600; white-space: nowrap; }
@@ -226,7 +226,7 @@ textarea { min-height: 72px; resize: vertical; }
 .big-quote { font-family: 'Space Grotesk', Inter, sans-serif; font-size: 22px; line-height: 1.35; margin: auto 0; text-align: center; }
 .select { width: 100%; min-height: 46px; border-radius: 12px; border: 1px solid var(--line); padding: 0 12px; font: inherit; background: #fff; color: var(--ink); }
 
-/* RepRiot: challenges */
+/* challenges */
 .challenge-title { display: block; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 18px; margin-top: 8px; }
 .challenge.gauntlet { border: 2px solid transparent; background: linear-gradient(#fff, #fff) padding-box, var(--hype) border-box; }
 .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #e8ecef; color: var(--ink); }
@@ -240,7 +240,7 @@ textarea { min-height: 72px; resize: vertical; }
 .debate-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px; max-height: 180px; overflow-y: auto; }
 .debate .row input { flex: 1; min-height: 40px; }
 
-/* RepRiot: welcome */
+/* welcome */
 .hero-title { font-size: 44px; letter-spacing: -0.02em; color: var(--primary); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 6px; text-underline-offset: 6px; }
 @media (prefers-reduced-motion: no-preference) {
   .wiggle { animation: wiggle 2.4s ease-in-out infinite; transform-origin: 50% 80%; }

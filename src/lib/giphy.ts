@@ -1,3 +1,4 @@
+import { storageKey } from '../config/brand'
 const KEY = import.meta.env.VITE_GIPHY_API_KEY as string | undefined
 
 export type Gif = {
@@ -50,7 +51,7 @@ export async function searchGifs(query: string, signal?: AbortSignal): Promise<G
   })
 }
 
-const CHEER_KEY = 'repriot.cheers'
+const CHEER_KEY = storageKey('cheers')
 
 /**
  * A celebration GIF for after a set. The beta Giphy key allows 100 calls an hour,
