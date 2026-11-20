@@ -1,16 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Back } from '../components/Back'
 import { Loading } from '../components/Loading'
 import { Logo } from '../components/Logo'
-import { Media } from '../components/Media'
+import { ChannelPicker } from '../components/ChannelPicker'
+import { channelById, favoriteChannel } from '../channels/registry'
+import { readAloud, speak, stopSpeaking } from '../channels/speech'
+import { RULES } from '../config/rules'
 import { useAuth } from '../lib/auth'
 import { useCrew } from '../lib/crew'
 import { localDate } from '../lib/dates'
 import { exerciseLabel } from '../lib/format'
 import { cheerGif } from '../lib/giphy'
 import { errorText, supabase } from '../lib/supabase'
-import { POINTS_PER_SET, POTLUCK_BONUS, SETS_PER_DAY } from '../lib/types'
+
+const { setsPerDay: SETS_PER_DAY, pointsPerSet: POINTS_PER_SET, lineupBonus: LINEUP_BONUS } = RULES
 
 export function DoIt() {
   const { crewId = '', exerciseId = '' } = useParams()
@@ -26,6 +30,25 @@ export function DoIt() {
   const [error, setError] = useState<string | null>(null)
   const [cheer, setCheer] = useState<{ gif: string | null; finished: boolean; points: number; bonus: boolean } | null>(null)
   const okRef = useRef<HTMLButtonElement>(null)
+  const [channelId, setChannelId] = useState(favoriteChannel.get)
+  const [aloud, setAloud] = useState(readAloud.get)
+  const channel = channelById(channelId)
+  const say = useCallback((text: string, lang?: string) => {
+    if (aloud) speak(text, lang)
+  }, [aloud])
+
+  useEffect(() => stopSpeaking, [])
+
+  function pickChannel(id: string) {
+    stopSpeaking()
+    setChannelId(id)
+    favoriteChannel.set(id)
+  }
+
+  function toggleAloud() {
+    readAloud.set(!aloud)
+    setAloud(!aloud)
+  }
 
   useEffect(() => {
     if (secondsLeft === null || secondsLeft <= 0) return
@@ -67,12 +90,14 @@ export function DoIt() {
     })
     setBusy(false)
     if (err) return setError(errorText(err))
+    channel.onSetLogged?.()
+    stopSpeaking()
     const gif = await cheerGif()
     const mineToday = new Set(data!.todayLogs.filter((l) => l.user_id === profile.id).map((l) => l.exercise_id))
     const hadAll = mineToday.size >= data!.exercises.length
     mineToday.add(exercise.id)
     const bonus = !hadAll && mineToday.size >= data!.exercises.length
-    setCheer({ gif, finished: doneSoFar + 1 >= SETS_PER_DAY, points: POINTS_PER_SET + (bonus ? POTLUCK_BONUS : 0), bonus })
+    setCheer({ gif, finished: doneSoFar + 1 >= SETS_PER_DAY, points: POINTS_PER_SET + (bonus ? LINEUP_BONUS : 0), bonus })
   }
 
   return (
@@ -87,12 +112,18 @@ export function DoIt() {
         )}
       </div>
 
-      <div className="media">
-        <Media exercise={exercise} />
-        <span className="tag">Picked by {exercise.user_id === profile.id ? 'you' : owner?.display_name}</span>
-      </div>
+      <ChannelPicker value={channel.id} onChange={pickChannel} />
 
-      <h1 style={{ fontSize: 24, marginTop: 14 }}>{exerciseLabel(exercise)}</h1>
+      <div className="stage">
+        <channel.View key={channel.id} exercise={exercise} say={say} />
+      </div>
+      {readAloud.available() && channel.id !== 'form' && channel.id !== 'video' && (
+        <button type="button" className="link-btn small" style={{ alignSelf: 'flex-start', minHeight: 36 }} aria-pressed={aloud} onClick={toggleAloud}>
+          {aloud ? '🔊 Reading out loud' : '🔈 Read it out loud'}
+        </button>
+      )}
+
+      <h1 style={{ fontSize: 24, marginTop: 10 }}>{exerciseLabel(exercise)}</h1>
       <p className="muted small" style={{ margin: '4px 0 10px' }}>Brought by {exercise.user_id === profile.id ? 'you' : owner?.display_name}</p>
 
       {modLabel && (
@@ -152,7 +183,7 @@ export function DoIt() {
             </div>
             <div className="pts">+{cheer.points}</div>
             <h2 id="cheer-h" style={{ fontSize: 22, margin: '4px 0' }}>{cheer.finished ? `All ${SETS_PER_DAY} sets done!` : 'Set logged!'}</h2>
-            <p className="muted small" style={{ margin: '0 0 18px' }}>{cheer.bonus ? 'Every potluck exercise done today: +25 bonus!' : 'Posted to the crew feed.'}</p>
+            <p className="muted small" style={{ margin: '0 0 18px' }}>{cheer.bonus ? `Every move in the lineup done today: +${LINEUP_BONUS} bonus!` : 'Posted to the squad feed.'}</p>
             <button ref={okRef} type="button" className="btn btn-primary" onClick={() => navigate(`/crew/${crewId}`)}>Back to today</button>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Logo } from '../components/Logo'
+import { BRAND } from '../config/brand'
 import { errorText, supabase } from '../lib/supabase'
 
 /** Turn on once Google sign-in is set up in Supabase (Authentication > Providers > Google). */
@@ -20,14 +21,13 @@ export function Welcome() {
 
   return (
     <main className="screen">
-      <div style={{ display: 'flex', justifyContent: 'center', margin: '36px 0 8px' }}>
-        <Logo />
+      <div className="wiggle" style={{ display: 'flex', justifyContent: 'center', margin: '36px 0 8px' }}>
+        <Logo width={104} />
       </div>
-      <h1 className="center" style={{ fontSize: 36, marginTop: 8 }}>Fitluck</h1>
-      <p className="center muted" style={{ margin: '8px 0 32px' }}>
-        Everyone brings one exercise.
-        <br />
-        Everyone climbs together.
+      <h1 className="center hero-title" style={{ marginTop: 8 }}>{BRAND.name}</h1>
+      <p className="center" style={{ margin: '8px 0 6px', fontSize: 18, fontWeight: 600 }}>{BRAND.tagline}</p>
+      <p className="center muted" style={{ margin: '0 0 24px' }}>
+        Tiny workouts all day with your {BRAND.words.group}. While you rep, watch the form, learn about Greek gods, pick up Spanish, catch your team's score, or groan at a dad joke.
       </p>
       <div className="stack push">
         {GOOGLE_ENABLED && (

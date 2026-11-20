@@ -71,7 +71,7 @@ export async function fetchMyCrews(userId: string): Promise<MyCrew[]> {
   return (crews.data as Crew[]).map((c) => ({ ...c, member_count: counts.get(c.id) ?? 1 }))
 }
 
-const LAST_CREW = 'fitluck.lastCrew'
+const LAST_CREW = 'repriot.lastCrew'
 export const lastCrew = {
   get: () => {
     try {

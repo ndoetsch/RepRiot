@@ -7,7 +7,7 @@ import { FREEZES_PER_MONTH, POINTS_PER_SET, POTLUCK_BONUS, SETS_PER_DAY, type Se
 type LogLite = Pick<SetLog, 'user_id' | 'exercise_id' | 'local_date' | 'logged_at'>
 
 /**
- * How many exercises were on the potluck table. Either a fixed number, or a
+ * How many exercises were in the lineup. Either a fixed number, or a
  * function of the day, so that someone joining later doesn't take away
  * bonuses people already earned.
  */
@@ -17,7 +17,7 @@ export function sizeOn(size: PotluckSize, day: string): number {
   return typeof size === 'number' ? size : size(day)
 }
 
-/** Points for one person's sets on one day: 10 a set, +25 if they did every potluck exercise. */
+/** Points for one person's sets on one day: 10 a set, +25 if they did every move in the lineup. */
 export function dayPoints(logs: LogLite[], size: PotluckSize): number {
   if (!logs.length) return 0
   const exerciseCount = sizeOn(size, logs[0].local_date)
@@ -145,7 +145,7 @@ export function badges(userId: string, input: BadgeInput): Badge[] {
     { id: 'first', name: 'First Set', how: 'Log your first set', earned: myLogs.length > 0 },
     { id: 'roll', name: 'On a Roll', how: '3-day streak', earned: streak >= 3 },
     { id: 'week', name: 'Week Warrior', how: '7-day streak', earned: streak >= 7 },
-    { id: 'perfect', name: 'Potluck Perfect', how: 'Every potluck exercise in one day', earned: perfect },
+    { id: 'perfect', name: 'Lineup Legend', how: 'Every move in the lineup in one day', earned: perfect },
     { id: 'plate', name: 'Full Plate', how: 'All 3 sets of everything in one day', earned: fullPlate },
     { id: 'early', name: 'Early Bird', how: 'A set before 7 AM', earned: hours.some((h) => h < 7) },
     { id: 'owl', name: 'Night Owl', how: 'A set after 9 PM', earned: hours.some((h) => h >= 21) },

@@ -41,8 +41,14 @@ export type CrewStats = {
  * A swap keeps the count the same; a new member raises it from the day they brought theirs.
  */
 async function fetchPotluckSize(crewId: string, current: number): Promise<PotluckSize> {
-  const { data, error } = await supabase.from('potluck_exercises').select('user_id, created_at').eq('crew_id', crewId)
+  const [{ data, error }, crew] = await Promise.all([
+    supabase.from('potluck_exercises').select('user_id, created_at').eq('crew_id', crewId),
+    supabase.from('crews').select('solo').eq('id', crewId).single(),
+  ])
   if (error) throw error
+  if (crew.error) throw crew.error
+  // Solo runs have several moves from one person, so the lineup is simply today's moves.
+  if ((crew.data as { solo: boolean }).solo) return current
   const firstDay = new Map<string, string>()
   for (const r of (data ?? []) as { user_id: string; created_at: string }[]) {
     const day = localDate(new Date(r.created_at))

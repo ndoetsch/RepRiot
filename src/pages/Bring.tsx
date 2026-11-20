@@ -8,6 +8,8 @@ import { lastCrew, useCrew } from '../lib/crew'
 import { LIBRARY, type LibraryExercise } from '../lib/exercises'
 import { exerciseLabel } from '../lib/format'
 import { errorText, supabase } from '../lib/supabase'
+import { BRAND } from '../config/brand'
+import { RULES } from '../config/rules'
 import type { Exercise } from '../lib/types'
 
 const SWAP_DAYS = 30
@@ -22,7 +24,7 @@ export function Bring() {
   const { crewId = '' } = useParams()
   const { profile } = useAuth()
   const navigate = useNavigate()
-  const { data, error: loadError } = useCrew(crewId)
+  const { data, error: loadError, reload } = useCrew(crewId)
 
   const [step, setStep] = useState<1 | 2>(1)
   const [picked, setPicked] = useState<LibraryExercise | null>(LIBRARY[0])
@@ -39,9 +41,41 @@ export function Bring() {
   if (loadError) return <main className="screen"><p className="error">{loadError}</p><Link to="/crews">Back to my crews</Link></main>
   if (!data || !profile) return <Loading />
 
-  const mine = data.exercises.find((e) => e.user_id === profile.id)
+  const solo = data.crew.solo
+  const myMoves = data.exercises.filter((e) => e.user_id === profile.id)
+  // In a squad you bring one move and can swap it monthly. Solo, you build a lineup of up to 5.
+  const mine = solo ? undefined : myMoves[0]
   const locked = mine ? swapOpensOn(mine) : null
-  const taken = data.exercises.filter((e) => e.user_id !== profile.id).map((e) => e.name)
+  const taken = data.exercises.filter((e) => solo || e.user_id !== profile.id).map((e) => e.name)
+  const soloFull = solo && myMoves.length >= RULES.maxSoloMoves
+
+  async function remove(id: string) {
+    setBusy(true)
+    const { error: err } = await supabase.from('potluck_exercises').update({ active: false }).eq('id', id)
+    setBusy(false)
+    if (err) return setError(errorText(err))
+    await reload()
+  }
+
+  if (soloFull && step === 1) {
+    return (
+      <main className="screen">
+        <div className="top"><Back to={`/crew/${crewId}`} /><span /></div>
+        <h1 style={{ fontSize: 24 }}>Your lineup is full</h1>
+        <p className="muted">Solo runs hold up to {RULES.maxSoloMoves} moves. Remove one to add another.</p>
+        <div className="stack">
+          {myMoves.map((m) => (
+            <div key={m.id} className="ex-row">
+              <span className="name">{exerciseLabel(m)}</span>
+              <button type="button" className="link-btn small" style={{ marginLeft: 'auto', minHeight: 0 }} disabled={busy} onClick={() => remove(m.id)}>Remove</button>
+            </div>
+          ))}
+        </div>
+        {error && <p className="error" role="alert">{error}</p>}
+        <Link to={`/crew/${crewId}`} className="btn btn-primary push">Back to today</Link>
+      </main>
+    )
+  }
 
   if (mine && locked) {
     return (
@@ -118,11 +152,11 @@ export function Bring() {
       <main className="screen">
         <div className="top"><button type="button" className="back" aria-label="Back" onClick={() => setStep(1)}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg></button><span className="eyebrow">Step 2 of 2</span><span style={{ width: 44 }} /></div>
         <h1 style={{ fontSize: 24, marginBottom: 6 }}>Pick its GIF</h1>
-        <p className="muted small" style={{ margin: '0 0 14px' }}>Required. Everyone in {data.crew.name} sees this while doing {name || 'your exercise'}.</p>
+        <p className="muted small" style={{ margin: '0 0 14px' }}>Required. {solo ? `This plays when you pick the form guide while doing ${name || 'it'}.` : `Everyone in ${data.crew.name} can watch this while doing ${name || 'your move'}.`}</p>
         <GifPicker userId={profile.id} initialQuery={picked?.gifSearch ?? name} value={media} onChange={setMedia} />
         {error && <p className="error" role="alert" style={{ marginTop: 12 }}>{error}</p>}
         <button type="button" className="btn btn-primary" style={{ marginTop: 16 }} disabled={!media || busy} onClick={save}>
-          {busy ? 'Saving…' : 'Bring it to the potluck'}
+          {busy ? 'Saving…' : `Add it to the ${BRAND.words.lineup}`}
         </button>
       </main>
     )
@@ -130,9 +164,9 @@ export function Bring() {
 
   return (
     <main className="screen">
-      <div className="top"><Back to={mine ? `/crew/${crewId}` : '/crews'} /><span className="eyebrow">Step 1 of 2</span><span style={{ width: 44 }} /></div>
-      <h1 style={{ fontSize: 24, marginBottom: 6 }}>{mine ? 'Swap your exercise' : 'What are you bringing?'}</h1>
-      <p className="muted small" style={{ margin: '0 0 14px' }}>One exercise for {data.crew.name}, 1 minute or less a set, 3 sets a day. You can swap it once a month.</p>
+      <div className="top"><Back to={mine || myMoves.length ? `/crew/${crewId}` : '/crews'} /><span className="eyebrow">Step 1 of 2</span><span style={{ width: 44 }} /></div>
+      <h1 style={{ fontSize: 24, marginBottom: 6 }}>{mine ? 'Swap your move' : solo ? `Add a move (${myMoves.length + 1} of ${RULES.maxSoloMoves})` : 'What are you bringing?'}</h1>
+      <p className="muted small" style={{ margin: '0 0 14px' }}>{solo ? 'A move for your solo lineup' : `One move for ${data.crew.name}`}, 1 minute or less a set, 3 sets a day.{solo ? '' : ' You can swap it once a month.'}</p>
 
       <label htmlFor="ex-pick">Exercise</label>
       <select
@@ -142,7 +176,7 @@ export function Bring() {
         style={{ width: '100%', minHeight: 46, borderRadius: 12, border: '1px solid var(--line)', padding: '0 12px', font: 'inherit', background: '#fff' }}
       >
         {LIBRARY.map((x) => (
-          <option key={x.name} value={x.name}>{x.name}{taken.includes(x.name) ? ' (already brought)' : ''}</option>
+          <option key={x.name} value={x.name}>{x.name}{taken.includes(x.name) ? ' (already in)' : ''}</option>
         ))}
         <option value="__custom">Something else (custom)</option>
       </select>
@@ -152,7 +186,7 @@ export function Bring() {
           <input id="ex-name" type="text" value={name} onChange={(e) => setName(e.target.value)} maxLength={60} placeholder="Desk push-ups" />
         </div>
       )}
-      {taken.length > 0 && <p className="small muted">Already brought: {taken.join(', ')}</p>}
+      {taken.length > 0 && <p className="small muted">Already in the {BRAND.words.lineup}: {taken.join(', ')}</p>}
 
       <div className="card" style={{ marginTop: 12 }}>
         <div className="seg" role="group" aria-label="Count by">

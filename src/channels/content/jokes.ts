@@ -1,0 +1,23 @@
+/** Clean jokes for when the joke service can't be reached. */
+export const JOKES: string[] = [
+  "I told my wife she was drawing her eyebrows too high. She looked surprised.",
+  "Why don't skeletons fight each other? They don't have the guts.",
+  "I'm reading a book about anti-gravity. It's impossible to put down.",
+  "What do you call a fake noodle? An impasta.",
+  "Why did the scarecrow win an award? He was outstanding in his field.",
+  "I used to hate facial hair, but then it grew on me.",
+  "Why don't eggs tell jokes? They'd crack each other up.",
+  "What do you call a bear with no teeth? A gummy bear.",
+  "I only know 25 letters of the alphabet. I don't know y.",
+  "Why did the gym close down? It just didn't work out.",
+  "What's a squat's favorite kind of music? Heavy metal. With a deep drop.",
+  "I tried to do a plank, but I got bored. It was too long a board.",
+  "Why are burpees like taxes? Nobody likes them, but everybody does them anyway.",
+  "My favorite exercise is a cross between a lunge and a crunch. It's called lunch.",
+  "What do you call a dinosaur that does crunches? A tri-sit-tops.",
+  "Why did the bicycle fall over? It was two tired.",
+  "I asked the gym instructor if he could teach me to do the splits. He said, how flexible are you? I said, I can't make Tuesdays.",
+  "What did the ocean say to the beach? Nothing, it just waved.",
+  "How does a penguin build its house? Igloos it together.",
+  "Parallel lines have so much in common. It's a shame they'll never meet.",
+]

@@ -72,21 +72,21 @@ export function useAuth(): AuthState {
 export const pendingInvite = {
   get: () => {
     try {
-      return localStorage.getItem('fitluck.invite')
+      return localStorage.getItem('repriot.invite')
     } catch {
       return null
     }
   },
   set: (code: string) => {
     try {
-      localStorage.setItem('fitluck.invite', code)
+      localStorage.setItem('repriot.invite', code)
     } catch {
       /* private mode: the person will just need to tap the link again */
     }
   },
   clear: () => {
     try {
-      localStorage.removeItem('fitluck.invite')
+      localStorage.removeItem('repriot.invite')
     } catch {
       /* ignore */
     }

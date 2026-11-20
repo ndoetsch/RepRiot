@@ -1,12 +1,20 @@
+import { BRAND } from '../config/brand'
+
+/** The RepRiot bolt: a lightning strike breaking out of a hot gradient tile. */
 export function Logo({ width = 112 }: { width?: number }) {
   return (
-    <svg width={width} height={(width * 96) / 112} viewBox="0 0 112 96" role="img" aria-label="Fitluck logo">
-      <rect x="4" y="62" width="20" height="30" rx="6" fill="#7FD1AE" />
-      <rect x="30" y="46" width="20" height="46" rx="6" fill="#3DB58A" />
-      <rect x="56" y="30" width="20" height="62" rx="6" fill="#15803D" />
-      <rect x="82" y="14" width="20" height="78" rx="6" fill="#0F5F2E" />
-      <path d="M10 50 L40 32 L66 18 L96 4" stroke="#13293D" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M86 3 L97 3.5 L93 13.5" stroke="#13293D" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width={width} height={width} viewBox="0 0 112 112" role="img" aria-label={`${BRAND.name} logo`}>
+      <defs>
+        <linearGradient id="rr-logo" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#FF2E7E" />
+          <stop offset="1" stopColor="#FF8A00" />
+        </linearGradient>
+      </defs>
+      <rect x="4" y="4" width="104" height="104" rx="28" fill="url(#rr-logo)" />
+      <path d="M62 14 L30 62 H52 L44 98 L82 44 H59 Z" fill="#fff" stroke="#1B1036" strokeWidth="5" strokeLinejoin="round" />
+      <circle cx="88" cy="22" r="5" fill="#fff" />
+      <circle cx="22" cy="90" r="4" fill="#fff" />
+      <path d="M86 78 l8 -3 M90 88 l9 1 M20 30 l-8 -3 M24 20 l-3 -8" stroke="#fff" strokeWidth="4" strokeLinecap="round" />
     </svg>
   )
 }

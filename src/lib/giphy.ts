@@ -50,7 +50,7 @@ export async function searchGifs(query: string, signal?: AbortSignal): Promise<G
   })
 }
 
-const CHEER_KEY = 'fitluck.cheers'
+const CHEER_KEY = 'repriot.cheers'
 
 /**
  * A celebration GIF for after a set. The beta Giphy key allows 100 calls an hour,
